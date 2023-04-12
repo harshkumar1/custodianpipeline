@@ -1,0 +1,40 @@
+# This config file is templatized so that it can be easily customized. Values can be provided with a values.yml at the root of this repository
+template: true   # required for local templates
+valuesFilePath: ./values.yml
+
+resources:
+  # Sample Go app in a GitRepo
+  - name: git_repo
+    type: GitRepo
+    configuration:
+      path: {{ .Values.repoPath }}
+      branches:
+        include: main
+      gitProvider: {{ .Values.gitProvider }}
+
+  - name: cron_trigger_cu
+    type: CronTrigger
+    configuration:
+      interval: '0 2 1 * *'
+
+
+pipelines:
+  - name: AzureCustodian
+    configuration:
+      jfrogCliVersion: 2
+    steps:
+      - name: SetupCustodian
+        type: Bash
+        configuration:
+          inputResources:
+            - name: git_repo
+            - name: cron_trigger_cu
+          execution:
+            onStart:
+              - sudo apt install -y  python3.10-venv
+              - cd $HOME
+              - python3 -m venv custodian
+              - source $HOME/custodian/bin/activate
+              - pip install c7n c7n_azure
+            onExecute:
+              - custodian -h
