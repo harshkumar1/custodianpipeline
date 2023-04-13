@@ -32,8 +32,7 @@ pipelines:
         execution:
           onStart:
             - sudo apt-get update -y
-            - sudo apt-cache search venv
-            - sudo apt-get install -y  python3-venv
+            - sudo apt-get install -y  apt-utils python3-venv
             - cd $HOME
             - python3 -m venv custodian
             - source $HOME/custodian/bin/activate
