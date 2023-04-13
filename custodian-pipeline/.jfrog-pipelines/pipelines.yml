@@ -34,15 +34,13 @@ pipelines:
             - sudo apt-get update -y
             - sudo apt-get install -y  apt-utils python3-venv
             - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-            - cd $HOME
             - python3 -m venv custodian-runtime
             - source custodian-runtime/bin/activate
             - pip install c7n c7n_azure
+              
           onExecute:
-            - custodian -h
             - pwd
-            - ls -l
-            - find ./ 
+            - custodian -h
             - cd ./dependencyState/resources/git_repo/custodian-pipeline
             - export AZURE_TENANT_ID="0d768803-cf68-4acc-a0a2-b3744df7da0b"
             - export AZURE_SUBSCRIPTION_ID="9ca4b1d3-1d91-4022-9dc7-9cd240fc1237"
@@ -50,3 +48,4 @@ pipelines:
             - export AZURE_CLIENT_SECRET="X9R8Q~QZfcpzEll-_l-NIIRUFh0K1byt~PdcMa7j"
             - custodian run -s . azurevm.yml
             - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
+              
