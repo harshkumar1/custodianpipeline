@@ -38,22 +38,22 @@ pipelines:
             - pip3 install c7n c7n_azure
             - custodian -h
 
-      - name: RunPolicies
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: SetupCustodian
-          inputResources:
-            - name: git_repo
-        execution:              
-          onExecute:
-            - custodian -h
-            - cd ./dependencyState/resources/git_repo/custodian-pipeline
-            - export AZURE_TENANT_ID=$int_CustodianAzure_TenantId
-            - export AZURE_SUBSCRIPTION_ID=$int_CustodianAzure_SubscriptionId
-            - export AZURE_CLIENT_ID=$int_CustodianAzure_ClientId
-            - export AZURE_CLIENT_SECRET=$int_CustodianAzure_ClientSecret
-            - export AZURE_USE_MSI=1
-            - custodian run -s . azurevm.yml
-            - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
-              
+        - name: RunPolicies
+          type: Bash
+          configuration:
+            inputSteps:
+              - name: SetupCustodian
+            inputResources:
+              - name: git_repo
+          execution:              
+            onExecute:
+              - custodian -h
+              - cd ./dependencyState/resources/git_repo/custodian-pipeline
+              - export AZURE_TENANT_ID=$int_CustodianAzure_TenantId
+              - export AZURE_SUBSCRIPTION_ID=$int_CustodianAzure_SubscriptionId
+              - export AZURE_CLIENT_ID=$int_CustodianAzure_ClientId
+              - export AZURE_CLIENT_SECRET=$int_CustodianAzure_ClientSecret
+              - export AZURE_USE_MSI=1
+              - custodian run -s . azurevm.yml
+              - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
+
