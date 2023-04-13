@@ -29,12 +29,12 @@ pipelines:
           inputResources:
             - name: git_repo
             - name: cron_trigger_cu
-          execution:
-            onStart:
-              - sudo apt install -y  python3.10-venv
-              - cd $HOME
-              - python3 -m venv custodian
-              - source $HOME/custodian/bin/activate
-              - pip install c7n c7n_azure
-            onExecute:
-              - custodian -h
+        execution:
+          onStart:
+            - sudo apt install -y  python3.10-venv
+            - cd $HOME
+            - python3 -m venv custodian
+            - source $HOME/custodian/bin/activate
+            - pip install c7n c7n_azure
+          onExecute:
+            - custodian -h
