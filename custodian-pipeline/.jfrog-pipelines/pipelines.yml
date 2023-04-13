@@ -35,7 +35,7 @@ pipelines:
             - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 #             - python3 -m venv custodian-runtime
 #             - source custodian-runtime/bin/activate
-            - pip3 install c7n c7n_azure
+            - sudo pip3 install c7n c7n_azure
             - custodian -h
       - name: RunPolicies
         type: Bash
