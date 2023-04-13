@@ -1,3 +1,8 @@
 policies:
-  - name: find-all-vms-accounts
-    resource: azure.vm
+  - name: azure-resources
+    resource: azure.armresource
+    filters:
+      - or:
+        - tag:owner: null
+        - tag:team: null
+        - tag:purpose: null
