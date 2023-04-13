@@ -46,6 +46,7 @@ pipelines:
             - export AZURE_SUBSCRIPTION_ID="9ca4b1d3-1d91-4022-9dc7-9cd240fc1237"
             - export AZURE_CLIENT_ID="1ddc3fb4-63b1-4dba-8e5a-525567f7c905"
             - export AZURE_CLIENT_SECRET="0ui8Q~QX3.vkbFM3ENUirnxnv_HdGtDck1cZca3m"
+            - export AZURE_USE_MSI=1
             - custodian run -s . azurevm.yml
             - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
               
