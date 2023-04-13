@@ -44,8 +44,8 @@ pipelines:
             - cd ./dependencyState/resources/git_repo/custodian-pipeline
             - export AZURE_TENANT_ID="0d768803-cf68-4acc-a0a2-b3744df7da0b"
             - export AZURE_SUBSCRIPTION_ID="9ca4b1d3-1d91-4022-9dc7-9cd240fc1237"
-            - export AZURE_CLIENT_ID="cd926dc8-6a79-40dd-b812-a0d8beb8ae6a"
-            - export AZURE_CLIENT_SECRET="X9R8Q~QZfcpzEll-_l-NIIRUFh0K1byt~PdcMa7j"
+            - export AZURE_CLIENT_ID="1ddc3fb4-63b1-4dba-8e5a-525567f7c905"
+            - export AZURE_CLIENT_SECRET="0ui8Q~QX3.vkbFM3ENUirnxnv_HdGtDck1cZca3m"
             - custodian run -s . azurevm.yml
             - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
               
