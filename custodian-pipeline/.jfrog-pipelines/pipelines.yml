@@ -26,6 +26,7 @@ pipelines:
       - name: SetupCustodian
         type: Bash
         configuration:
+          affinityGroup: custodiantasks
           inputResources:
             - name: cron_trigger_cu
         execution:
@@ -40,6 +41,7 @@ pipelines:
       - name: RunPolicies
         type: Bash
         configuration:
+          affinityGroup: custodiantasks
           inputSteps:
             - name: SetupCustodian
           inputResources:
