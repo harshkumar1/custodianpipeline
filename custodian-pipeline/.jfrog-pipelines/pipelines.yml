@@ -30,22 +30,28 @@ pipelines:
             - name: git_repo
             - name: cron_trigger_cu
         execution:
-          onStart:
+          onExecute:
             - sudo apt-get update -y
             - sudo apt-get install -y  apt-utils python3-venv
             - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
             - python3 -m venv custodian-runtime
             - source custodian-runtime/bin/activate
             - pip install c7n c7n_azure
-              
+            - custodian -h
+
+      - name: RunPolicies
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: SetupCustodian
+        execution:              
           onExecute:
-            - pwd
             - custodian -h
             - cd ./dependencyState/resources/git_repo/custodian-pipeline
-            - export AZURE_TENANT_ID="0d768803-cf68-4acc-a0a2-b3744df7da0b"
-            - export AZURE_SUBSCRIPTION_ID="9ca4b1d3-1d91-4022-9dc7-9cd240fc1237"
-            - export AZURE_CLIENT_ID="d3066ae9-cf5a-4cb4-b219-296f8a568510"
-            - export AZURE_CLIENT_SECRET="2w.8Q~BK7FSM~_Y3F.lpTBXP12ENZIvQNFG.cbHL"
+            - export AZURE_TENANT_ID=$int_CustodianAzure_TenantId
+            - export AZURE_SUBSCRIPTION_ID=$int_CustodianAzure_SubscriptionId
+            - export AZURE_CLIENT_ID=$int_CustodianAzure_ClientId
+            - export AZURE_CLIENT_SECRET=$int_CustodianAzure_ClientSecret
             - export AZURE_USE_MSI=1
             - custodian run -s . azurevm.yml
             - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
