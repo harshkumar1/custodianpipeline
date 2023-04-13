@@ -32,10 +32,13 @@ pipelines:
         execution:
           onStart:
             - sudo apt-get update -y
-            - sudo apt-get install -y  apt-utils python3-venv
-            - cd $HOME
-            - python3 -m venv custodian
-            - source $HOME/custodian/bin/activate
-            - pip install c7n c7n_azure
+#             - sudo apt-get install -y  apt-utils python3-venv
+#             - cd $HOME
+#             - python3 -m venv custodian-runtime
+#             - source custodian-runtime/bin/activate
+#             - pip install c7n c7n_azure
           onExecute:
             - custodian -h
+            - pwd
+            - ls -l
+            - find ./ 
