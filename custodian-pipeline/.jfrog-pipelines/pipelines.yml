@@ -21,14 +21,15 @@ resources:
 pipelines:
   - name: AzureCustodian
     configuration:
+      affinityGroup: custodiantasks
       jfrogCliVersion: 2
     steps:
       - name: SetupCustodian
         type: Bash
         configuration:
-          affinityGroup: custodiantasks
           inputResources:
             - name: cron_trigger_cu
+            - name: git_repo
         execution:
           onExecute:
             - sudo apt-get update -y
@@ -41,7 +42,6 @@ pipelines:
       - name: RunPolicies
         type: Bash
         configuration:
-          affinityGroup: custodiantasks
           inputSteps:
             - name: SetupCustodian
           inputResources:
