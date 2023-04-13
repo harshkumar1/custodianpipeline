@@ -37,8 +37,7 @@ pipelines:
 #             - source custodian-runtime/bin/activate
             - pip3 install c7n c7n_azure
             - custodian -h
-
-        - name: RunPolicies
+      - name: RunPolicies
           type: Bash
           configuration:
             inputSteps:
@@ -56,4 +55,3 @@ pipelines:
               - export AZURE_USE_MSI=1
               - custodian run -s . azurevm.yml
               - custodian report -s . --format=grid --field "tags=tags" azurevm.yml
-
