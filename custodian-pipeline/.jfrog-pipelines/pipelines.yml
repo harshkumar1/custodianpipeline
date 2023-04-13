@@ -38,7 +38,7 @@ pipelines:
 #             - source custodian-runtime/bin/activate
 #             - pip install c7n c7n_azure
           onExecute:
-            - custodian -h
+#             - custodian -h
             - pwd
             - ls -l
             - find ./ 
