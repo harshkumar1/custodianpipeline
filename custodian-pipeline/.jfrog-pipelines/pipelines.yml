@@ -27,16 +27,15 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: git_repo
             - name: cron_trigger_cu
         execution:
           onExecute:
             - sudo apt-get update -y
-            - sudo apt-get install -y  apt-utils python3-venv
+#             - sudo apt-get install -y  apt-utils python3-venv
             - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-            - python3 -m venv custodian-runtime
-            - source custodian-runtime/bin/activate
-            - pip install c7n c7n_azure
+#             - python3 -m venv custodian-runtime
+#             - source custodian-runtime/bin/activate
+            - pip3 install c7n c7n_azure
             - custodian -h
 
       - name: RunPolicies
@@ -44,6 +43,8 @@ pipelines:
         configuration:
           inputSteps:
             - name: SetupCustodian
+          inputResources:
+            - name: git_repo
         execution:              
           onExecute:
             - custodian -h
